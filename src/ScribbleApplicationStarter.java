@@ -105,9 +105,8 @@ public class ScribbleApplicationStarter {
 		String loc = "";
 		String directionToMove = "";
 		while (isGameActive && true) {
-			enterWordLoop:
-			for (Player player : playersInGame) {
-				
+			enterWordLoop: for (Player player : playersInGame) {
+
 				while (isGameActive && true) {
 					// Checking for termination condition
 					if (isTerminated(playersInGame, gridsUsed)) {
@@ -162,7 +161,7 @@ public class ScribbleApplicationStarter {
 					// Asking user where to start placing words.
 					System.out.println("Enter Location(e.g. 3,4) :");
 					loc = reader.readLine();
-					if(loc.isEmpty()) {
+					if (loc.isEmpty()) {
 						System.out.println("Location can't be blank");
 						continue;
 					}
@@ -193,8 +192,7 @@ public class ScribbleApplicationStarter {
 							System.out.println("ERROR: INVALID DIRECTION");
 
 						}
-					}
-					else {
+					} else {
 						System.out.println("INFO: Either game is not active or Word length can't be accommodated!!!");
 						break enterWordLoop;
 					}
@@ -223,30 +221,27 @@ public class ScribbleApplicationStarter {
 		boolean isWordLengthValid = false;
 		int availableCellsSize = 0;
 		if ("N".equalsIgnoreCase(directionToMove)) {
-			availableCellsSize = row+1;
-			if(wordByPlayer.length() <= availableCellsSize) {
+			availableCellsSize = row + 1;
+			if (wordByPlayer.length() <= availableCellsSize) {
 				isWordLengthValid = true;
 			}
 		} else if ("S".equalsIgnoreCase(directionToMove)) {
 			availableCellsSize = 15 - col;
-			if(wordByPlayer.length() <= availableCellsSize) {
+			if (wordByPlayer.length() <= availableCellsSize) {
 				isWordLengthValid = true;
 			}
 		} else if ("E".equalsIgnoreCase(directionToMove)) {
 			availableCellsSize = 15 - col;
-			if(wordByPlayer.length() <= availableCellsSize) {
+			if (wordByPlayer.length() <= availableCellsSize) {
 				isWordLengthValid = true;
 			}
 		} else if ("W".equalsIgnoreCase(directionToMove)) {
-			availableCellsSize = row+1;
-			if(wordByPlayer.length() <= availableCellsSize) {
+			availableCellsSize = row + 1;
+			if (wordByPlayer.length() <= availableCellsSize) {
 				isWordLengthValid = true;
 			}
-		} 
-		
-		
-		
-		
+		}
+
 		return isWordLengthValid;
 	}
 
@@ -368,7 +363,8 @@ public class ScribbleApplicationStarter {
 				System.err.println("ERROR: Word Cann't be placed in specified location");
 				int finalrowValue = row;
 				int finalColValue = col;
-				resetUpdatedValues(gameBoardInitialState,initialRowValue, finalrowValue, initialColValue, finalColValue);
+				resetUpdatedValues(gameBoardInitialState, initialRowValue, finalrowValue, initialColValue,
+						finalColValue);
 				wordPlaced = Boolean.FALSE;
 				break;
 			}
@@ -380,15 +376,15 @@ public class ScribbleApplicationStarter {
 	private void resetUpdatedValues(char[][] gameBoardInitialState, int initialRowValue, int finalRowValue,
 			int initialColValue, int finalColValue) {
 		if (initialColValue == finalColValue) {
-			for (int i = initialColValue; i<finalColValue; i++) {
-				gameBoardInitialState[initialRowValue][i] = ' '; 
+			for (int i = initialColValue; i < finalColValue; i++) {
+				gameBoardInitialState[initialRowValue][i] = ' ';
 			}
-		}else {
-			for (int i = initialRowValue; i<finalRowValue; i++) {
-				gameBoardInitialState[i][initialColValue] = ' '; 
+		} else {
+			for (int i = initialRowValue; i < finalRowValue; i++) {
+				gameBoardInitialState[i][initialColValue] = ' ';
 			}
 		}
-		
+
 	}
 
 	// This method verified that the grid position is valid or not
@@ -461,10 +457,10 @@ public class ScribbleApplicationStarter {
 			Integer playerId = i;
 			System.out.println("Enter Player " + i + " name:");
 			String name = reader.readLine();
-			if(name.isEmpty()) {
-				
-				name = "Player "+playerId;
-				System.out.println("For Player "+i+" name is set as "+name );
+			if (name.isEmpty()) {
+
+				name = "Player " + playerId;
+				System.out.println("For Player " + i + " name is set as " + name);
 			}
 			Integer score = 0;
 			Player player = new Player(playerId, name, score);
@@ -502,6 +498,10 @@ public class ScribbleApplicationStarter {
 
 				for (int k = 0; k < 15; k++) {
 					gameBoard[i][k] = row[k].charAt(0);
+					if (row[k].charAt(0) != ' ') {
+
+						gridsUsed.add(new Grid(i, k));
+					}
 				}
 
 				rowNum++;
